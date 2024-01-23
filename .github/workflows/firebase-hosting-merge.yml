@@ -10,9 +10,6 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: ozaytsev86/create-env-file@v1
-        with:
-
       - uses: actions/checkout@v4
       - run: npm ci && npm run build
         env:
