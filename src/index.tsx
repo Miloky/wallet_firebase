@@ -13,7 +13,6 @@ import {
 import { transactionConverter } from './domain/transaction-converter';
 
 import {
-  GoogleAuthProvider,
   getAuth,
 
 } from 'firebase/auth';
