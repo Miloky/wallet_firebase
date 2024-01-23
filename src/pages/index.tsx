@@ -90,14 +90,14 @@ const Page = () => {
   const [accounts, setAccounts] = React.useState<Account[]>([]);
   const isInitiated = React.useRef(false);
 
-  const loadAccounts = () =>
-    accountService.getAll().then((x) => setAccounts(x));
+  const loadAccounts = async () => {
+    const acc = await accountService.getAll();
+    console.log('accounts was loaded', acc);
+    setAccounts(acc);
+  };
 
   useEffect(() => {
-    if (isInitiated.current) {
-      loadAccounts();
-    }
-    isInitiated.current = true;
+    loadAccounts();
   }, []);
 
   const deleteHandler = async (id: string): Promise<void> => {
