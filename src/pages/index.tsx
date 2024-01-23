@@ -88,7 +88,6 @@ function FormDialog(props: any) {
 
 const Page = () => {
   const [accounts, setAccounts] = React.useState<Account[]>([]);
-  const isInitiated = React.useRef(false);
 
   const loadAccounts = async () => {
     const acc = await accountService.getAll();
