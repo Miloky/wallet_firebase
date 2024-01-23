@@ -8,21 +8,17 @@ import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
   doc,
-  collection,
   getDoc,
-  FirestoreDataConverter,
 } from 'firebase/firestore';
 import { transactionConverter } from './domain/transaction-converter';
 
 import {
   GoogleAuthProvider,
   getAuth,
-  signInWithPopup,
-  signInWithRedirect,
+
 } from 'firebase/auth';
 import { firebaseConfiguration } from './firebase-configuration';
 
-const provider = new GoogleAuthProvider();
 
 const app = initializeApp(firebaseConfiguration);
 const auth = getAuth();
@@ -56,7 +52,7 @@ getDoc(docRef)
   .then((x) => {
     console.log('X', x.data());
   })
-  .catch((x) => console.log('ERORR'));
+  .catch(() => console.log('ERORR'));
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
