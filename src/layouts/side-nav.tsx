@@ -6,7 +6,6 @@ import {
   Stack,
   useMediaQuery,
 } from '@mui/material';
-import { Logo } from '../components/logo';
 import { Scrollbar } from '../components/scrollbar';
 import { items } from './config';
 import { SideNavItem } from './side-nav-item';
@@ -44,7 +43,7 @@ export const SideNav = (props: any) => {
               width: 32,
             }}
           >
-            <Logo />
+            {/* <Logo /> */}
           </Box>
         </Box>
         <Divider sx={{ borderColor: '#2F3746' }} />
