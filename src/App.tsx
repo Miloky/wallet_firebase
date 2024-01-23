@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useParams,
+} from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import 'simplebar-react/dist/simplebar.min.css';
+import Main from './pages/index';
+const theme = createTheme();
 
-function App() {
+const TestComponent = () => {
+  const { id } = useParams();
+  return <span>{id}</span>;
+};
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Routes>
+          <Route path='/' Component={() => Main.getLayout(<Main />)} />
+          <Route
+            path='/test/:id'
+            Component={() => Main.getLayout(<TestComponent />)}
+          ></Route>
+        </Routes>
+      </ThemeProvider>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

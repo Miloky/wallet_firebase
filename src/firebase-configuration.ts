@@ -17,5 +17,3 @@ export const firebaseConfiguration: FirebaseOptions = {
   messagingSenderId: getEnvironmentVariable('MESSAGENING_SENDER_ID'),
   appId: getEnvironmentVariable('APP_ID'),
 };
-
-console.log(firebaseConfiguration);
