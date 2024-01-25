@@ -1,27 +1,42 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
+import { store } from './firebase-service';
 import {
-  getFirestore,
   doc,
   getDoc,
+  getDocs,
+  collection,
+  addDoc,
 } from 'firebase/firestore';
-import { transactionConverter } from '../domain/transaction-converter';
-
-import { firebaseConfiguration } from '../firebase-configuration';
 
 
+class TransactionService {
+  // TODO: Add types
+  // TODO: Add 
+  public async create(accountId: string, val: any): Promise<string> {
+    const collectionRef = collection(store, 'accounts', accountId, 'transactions');
+    const docRef = await addDoc(collectionRef, val);
+    return docRef.id;
+  }
 
+  // TODO: Types for return value
+  public async getById(accountId: string, transactionId: string): Promise<any[]> {
+    const docRef = doc(store, 'accounts', accountId, 'transactions', transactionId);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data() as any[];
+    } else {
+      throw new Error('No such document!');
+    }
+  }
 
-const app = initializeApp(firebaseConfiguration);
+  // TODO: Add types
+  public async getAll(accountId: string): Promise<any[]> {
+    const collectionRef = collection(store, 'accounts', accountId, 'transactions');
+    const docs = await getDocs(collectionRef);
+    const result: any[] = [];
+    docs.forEach(doc => result.push({ id: doc.id, ...doc.data()}));
+    return result;
+  }
+}
 
-
-
-// Initialize Firebase
-const db = getFirestore(app);
-const docRef = doc(db, 'transactions', '1').withConverter(transactionConverter);
-// docRef.withConverter
-getDoc(docRef)
-  .then((x) => {
-    console.log('X', x.data());
-  })
-  .catch(() => console.log('ERORR'));
+const transactionService = new TransactionService();
+export default transactionService;
