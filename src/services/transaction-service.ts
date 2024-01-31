@@ -1,12 +1,13 @@
 import {
   doc,
   getDoc,
-  updateDoc,
   getDocs,
   collection,
   addDoc,
   runTransaction,
 } from 'firebase/firestore';
+import { store } from './firebase-service';
+import { Account } from './account-service';
 
 class TransactionService {
   // TODO: Add types
