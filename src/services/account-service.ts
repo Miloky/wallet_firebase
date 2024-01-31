@@ -33,7 +33,7 @@ class AccountService {
     return result;
   }
 
-  public async create(val: Account): Promise<string> {
+  public async create(val: Omit<Account, 'id'>): Promise<string> {
     const docRef = await addDoc(collection(store, 'accounts'), val);
     return docRef.id;
   }

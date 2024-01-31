@@ -1,21 +1,16 @@
-import React from 'react';
 import './App.css';
 import {
   BrowserRouter,
   Routes,
   Route,
-  useParams,
 } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import 'simplebar-react/dist/simplebar.min.css';
-import Main from './pages/index';
-const theme = createTheme();
+import Home from './pages/home';
+import CheckboxList from './transaction-list';
 
-const TestComponent = () => {
-  const { id } = useParams();
-  return <span>{id}</span>;
-};
+const theme = createTheme();
 
 const App = () => {
   return (
@@ -23,10 +18,10 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes>
-          <Route path='/' Component={() => Main.getLayout(<Main />)} />
+          <Route path='/' Component={() => Home.getLayout(<Home />)} />
           <Route
-            path='/test/:id'
-            Component={() => Main.getLayout(<TestComponent />)}
+            path='/accounts/:id'
+            Component={() => Home.getLayout(<CheckboxList />)}
           ></Route>
         </Routes>
       </ThemeProvider>
