@@ -1,0 +1,118 @@
+[
+  {
+    "name": "Shopping",
+    "subcategories": [
+      "Clothes & shoes",
+      "Jewels, accessories",
+      "Health and beauty",
+      "Kids",
+      "Home, garden",
+      "Pets, animals",
+      "Electronics, accessories",
+      "Gifts, joy",
+      "Stationery, tools",
+      "Free time",
+      "Drug-store, chemist"
+    ]
+  },
+  {
+    "name": "Housing",
+    "subcategories": [
+      "Rent",
+      "Mortgage",
+      "Energy, utilities",
+      "Services",
+      "Maintenance, repairs",
+      "Property insurance"
+    ]
+  },
+  {
+    "name": "Transportation",
+    "subcategories": [
+      "Public transport",
+      "Taxi",
+      "Long distance",
+      "Business trips"
+    ]
+  },
+  {
+    "name": "Vehicle",
+    "subcategories": [
+      "Fuel",
+      "Parking",
+      "Vehicle maintenance",
+      "Rentals",
+      "Vehicle insurance",
+      "Leasing"
+    ]
+  },
+  {
+    "name": "Life & Entertainment",
+    "subcategories": [
+      "Health care, doctor",
+      "Wellness, beauty",
+      "Active sport, fitness",
+      "Culture, sport events",
+      "Life events",
+      "Hobbies",
+      "Education, development",
+      "Books, audio, subscriptions",
+      "TV, streaming",
+      "Holiday, trips, hotels",
+      "Charity, gifts",
+      "Alcohol, tobacco",
+      "Lottery, gambling"
+    ]
+  },
+  {
+    "name": "Communication, PC",
+    "subcategories": [
+      "Phone, cell phone",
+      "Internet",
+      "Software, apps, games",
+      "Postal service"
+    ]
+  },
+  {
+    "name": "Financial expenses",
+    "subcategories": [
+      "Taxes",
+      "Insurances",
+      "Loan, interests",
+      "Fines",
+      "Advisory",
+      "Charges, Fees",
+      "Child Support"
+    ]
+  },
+  {
+    "name": "Investments",
+    "subcategories": [
+      "Realty",
+      "Vehicles, chattels",
+      "Financial investments",
+      "Savings",
+      "Collections"
+    ]
+  },
+  {
+    "name": "Income",
+    "subcategories": [
+      "Wage, invoices",
+      "Interests, dividends",
+      "Sale",
+      "Rental income",
+      "Dues & grants",
+      "Lending, renting",
+      "Checks, coupons",
+      "Lottery, gambling",
+      "Refunds (tax, purchase)",
+      "Child support",
+      "Gifts"
+    ]
+  },
+  {
+    "name": "Other",
+    "subcategories": ["Missing"]
+  }
+]

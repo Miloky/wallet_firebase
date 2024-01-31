@@ -10,45 +10,16 @@ import {
   ListSubheader,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
 } from "@mui/material";
-// TODO: Refactor import
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { TransactionType } from "./transaction-type";
+import useCategories from "./hooks/use-categories";
+import TransactionTypeControl from './transaction-type-control';
 
 interface CreateTransactionDialogProps {
   // TODO: add types
   onSave: (data: any) => Promise<void>;
 }
-
-interface TransactionTypeControlProps {
-  // Transaction type. Example: income, expense, transfer.
-  type: string;
-  onChange: (type: string) => void;
-}
-
-const TransactionTypeControl = (props: TransactionTypeControlProps) => {
-  const { type, onChange } = props;
-
-  const handleChange = (e: any, newAlignment: string) => {
-    onChange(newAlignment);
-  };
-
-  return (
-    <ToggleButtonGroup
-      color="primary"
-      value={type}
-      exclusive
-      fullWidth
-      onChange={handleChange}
-    >
-      <ToggleButton value={TransactionType.Expense}>Expense</ToggleButton>
-      <ToggleButton value={TransactionType.Income}>Income</ToggleButton>
-      <ToggleButton value={TransactionType.Transfer}>Transfer</ToggleButton>
-    </ToggleButtonGroup>
-  );
-};
 
 interface CreateTransactionDialogState {
   type: string;
@@ -71,6 +42,8 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
     getDefaultState()
   );
 
+  const { categories } = useCategories();
+
   const setDefaultFormState = () => {
     const defaultState = getDefaultState();
     setFormState(defaultState);
@@ -85,22 +58,38 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
     setDefaultFormState();
   };
 
-  const setInputValue = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    // TODO: Add validation
-    // TODO: Add types
-    setFormState((prevState: any) => ({
+  const setState = (name: string, value: any): void =>
+    setFormState((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+
+  const setInputValue = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>
+  ) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setState(name, value);
   };
 
   const setTransactionType = (type: string): void => {
     setFormState((prev) => ({ ...prev, type }));
+  };
+
+  const getOptions = () => {
+    // TODO: Add types
+    const result: any[] = categories.reduce((result, val) => {
+      result.push(<ListSubheader key={val.id}>{val.name}</ListSubheader>);
+      result.push(
+        ...val.sub.map((c: any) => (
+          <MenuItem style={{ paddingLeft: "40px" }} key={c.id} value={c.id}>
+            {c.name}
+          </MenuItem>
+        ))
+      );
+      return result;
+    }, [] as any[]);
+    return result;
   };
 
   return (
@@ -143,19 +132,15 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
             onChange={setInputValue}
             value={formState.amount}
           />
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel htmlFor="grouped-select">Grouping</InputLabel>
-            <Select defaultValue="" id="grouped-select" label="Grouping">
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-
-              <ListSubheader>Category 1</ListSubheader>
-              <MenuItem value={1}>Option 1</MenuItem>
-              <MenuItem value={2}>Option 2</MenuItem>
-              <ListSubheader>Category 2</ListSubheader>
-              <MenuItem value={3}>Option 3</MenuItem>
-              <MenuItem value={4}>Option 4</MenuItem>
+          <FormControl sx={{ minWidth: 120 }} fullWidth style={{ marginTop: '10px'}}>
+            <InputLabel htmlFor="grouped-select">Category</InputLabel>
+            <Select
+              onChange={setInputValue}
+              name="category"
+              id="category"
+              label="Category"
+            >
+              {getOptions()}
             </Select>
           </FormControl>
           <TextField
@@ -170,19 +155,6 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
             variant="standard"
             onChange={setInputValue}
             value={formState.description}
-          />
-          <TextField
-            autoFocus
-            required
-            margin="dense"
-            id="category"
-            name="category"
-            label="Category"
-            type="text"
-            fullWidth
-            variant="standard"
-            onChange={setInputValue}
-            value={formState.category}
           />
         </DialogContent>
         <DialogActions>

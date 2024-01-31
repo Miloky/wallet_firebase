@@ -16,9 +16,10 @@ class TransactionService {
     let id: string = '';
     await runTransaction(store, async (storeTransaction)=>{
       const { type, amount } = transaction;
+
       const accountRef = doc(store, 'accounts', accountId);
       const transactionsRef = collection(accountRef, 'transactions');
-      const docRef = await addDoc(transactionsRef, transaction);
+      const docRef = await addDoc(transactionsRef, {...transaction, category: doc(store, 'category', transaction.category)});
 
       const accountSnapshot = await storeTransaction.get(accountRef);
       const account = accountSnapshot.data() as Account;
