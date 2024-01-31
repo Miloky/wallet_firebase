@@ -62,6 +62,8 @@ const TransactionList = () => {
   }, [id]);
 
   const createTransaction = async (data: any): Promise<void> => {
+    // TODO: fix
+    data.amount = parseFloat(data.amount);
     await transactionService.create(id!, { ...data });
     await getAllTransactions();
   }

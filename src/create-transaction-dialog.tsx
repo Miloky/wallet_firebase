@@ -1,9 +1,21 @@
-import { useState, ChangeEvent } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import { useState, ChangeEvent } from "react";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  InputLabel,
+  ListSubheader,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 // TODO: Refactor import
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { TransactionType } from './transaction-type';
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import { TransactionType } from "./transaction-type";
 
 interface CreateTransactionDialogProps {
   // TODO: add types
@@ -36,8 +48,7 @@ const TransactionTypeControl = (props: TransactionTypeControlProps) => {
       <ToggleButton value={TransactionType.Transfer}>Transfer</ToggleButton>
     </ToggleButtonGroup>
   );
-}
-
+};
 
 interface CreateTransactionDialogState {
   type: string;
@@ -47,17 +58,18 @@ interface CreateTransactionDialogState {
 }
 
 const getDefaultState = (): CreateTransactionDialogState => ({
-  description: '',
+  description: "",
   amount: 0,
-  type: 'expense',
-  category: ''
+  type: "expense",
+  category: "",
 });
-
 
 const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
   const { onSave } = props;
   const [open, setOpen] = useState(false);
-  const [formState, setFormState] = useState<CreateTransactionDialogState>(getDefaultState());
+  const [formState, setFormState] = useState<CreateTransactionDialogState>(
+    getDefaultState()
+  );
 
   const setDefaultFormState = () => {
     const defaultState = getDefaultState();
@@ -73,7 +85,9 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
     setDefaultFormState();
   };
 
-  const setInputValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const setInputValue = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const name = e.target.name;
     const value = e.target.value;
 
@@ -83,16 +97,18 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
       ...prevState,
       [name]: value,
     }));
-  }
+  };
 
   const setTransactionType = (type: string): void => {
-    setFormState((prev) => ({ ...prev, type }))
-  }
+    setFormState((prev) => ({ ...prev, type }));
+  };
 
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'end' }}>
-        <Button variant='text' onClick={handleClickOpen}>
+      <div
+        style={{ display: "flex", flexDirection: "row", justifyContent: "end" }}
+      >
+        <Button variant="text" onClick={handleClickOpen}>
           Add new transaction
         </Button>
       </div>
@@ -100,7 +116,7 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
         open={open}
         onClose={handleClose}
         PaperProps={{
-          component: 'form',
+          component: "form",
           onSubmit: async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             await onSave(formState);
@@ -110,54 +126,72 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
       >
         <DialogTitle>Create Transaction</DialogTitle>
         <DialogContent>
-          <TransactionTypeControl type={formState.type} onChange={setTransactionType} />
-          <TextField
-            autoFocus
-            required
-            margin='dense'
-            id='amount'
-            name='amount'
-            label='Amount'
-            type='text'
-            fullWidth
-            variant='standard'
-            onChange={setInputValue}
-            value={formState.amount}
+          <TransactionTypeControl
+            type={formState.type}
+            onChange={setTransactionType}
           />
           <TextField
             autoFocus
             required
-            margin='dense'
-            id='description'
-            name='description'
-            label='Description'
-            type='text'
+            margin="dense"
+            id="amount"
+            name="amount"
+            label="Amount"
+            type="text"
             fullWidth
-            variant='standard'
+            variant="standard"
+            onChange={setInputValue}
+            value={formState.amount}
+          />
+          <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel htmlFor="grouped-select">Grouping</InputLabel>
+            <Select defaultValue="" id="grouped-select" label="Grouping">
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+
+              <ListSubheader>Category 1</ListSubheader>
+              <MenuItem value={1}>Option 1</MenuItem>
+              <MenuItem value={2}>Option 2</MenuItem>
+              <ListSubheader>Category 2</ListSubheader>
+              <MenuItem value={3}>Option 3</MenuItem>
+              <MenuItem value={4}>Option 4</MenuItem>
+            </Select>
+          </FormControl>
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="description"
+            name="description"
+            label="Description"
+            type="text"
+            fullWidth
+            variant="standard"
             onChange={setInputValue}
             value={formState.description}
           />
           <TextField
             autoFocus
             required
-            margin='dense'
-            id='category'
-            name='category'
-            label='Category'
-            type='text'
+            margin="dense"
+            id="category"
+            name="category"
+            label="Category"
+            type="text"
             fullWidth
-            variant='standard'
+            variant="standard"
             onChange={setInputValue}
             value={formState.category}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type='submit'>Save</Button>
+          <Button type="submit">Save</Button>
         </DialogActions>
       </Dialog>
     </>
   );
-}
+};
 
 export default CreateTransactionDialog;

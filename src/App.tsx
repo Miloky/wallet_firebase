@@ -7,7 +7,7 @@ import {
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import 'simplebar-react/dist/simplebar.min.css';
-import Main from './pages/index';
+import Home from './pages/home';
 import CheckboxList from './transaction-list';
 
 const theme = createTheme();
@@ -18,10 +18,10 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes>
-          <Route path='/' Component={() => Main.getLayout(<Main />)} />
+          <Route path='/' Component={() => Home.getLayout(<Home />)} />
           <Route
-            path='/test/:id'
-            Component={() => Main.getLayout(<CheckboxList />)}
+            path='/accounts/:id'
+            Component={() => Home.getLayout(<CheckboxList />)}
           ></Route>
         </Routes>
       </ThemeProvider>
