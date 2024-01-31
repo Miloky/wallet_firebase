@@ -1,7 +1,4 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
 import {
-  getFirestore,
   collection,
   addDoc,
   doc,
@@ -9,10 +6,7 @@ import {
   deleteDoc,
 } from 'firebase/firestore';
 
-import { firebaseConfiguration } from '../firebase-configuration';
-
-const app = initializeApp(firebaseConfiguration);
-const store = getFirestore(app);
+import { store } from './firebase-service';
 
 enum Collection {
   Accounts = 'accounts',
