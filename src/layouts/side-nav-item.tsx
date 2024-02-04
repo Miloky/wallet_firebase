@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import { Box, ButtonBase } from '@mui/material';
-import { Link } from 'react-router-dom';
-
+/* eslint-disable indent */
+import PropTypes from "prop-types";
+import { Box, ButtonBase } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export const SideNavItem = (props: any) => {
   const { active = false, disabled, external, icon, path, title } = props;
@@ -9,9 +9,9 @@ export const SideNavItem = (props: any) => {
   const linkProps = path
     ? external
       ? {
-          component: 'a',
+          component: "a",
           href: path,
-          target: '_blank',
+          target: "_blank",
         }
       : {
           component: Link,
@@ -23,35 +23,35 @@ export const SideNavItem = (props: any) => {
     <li>
       <ButtonBase
         sx={{
-          alignItems: 'center',
+          alignItems: "center",
           borderRadius: 1,
-          display: 'flex',
-          justifyContent: 'flex-start',
-          pl: '16px',
-          pr: '16px',
-          py: '6px',
-          textAlign: 'left',
-          width: '100%',
+          display: "flex",
+          justifyContent: "flex-start",
+          pl: "16px",
+          pr: "16px",
+          py: "6px",
+          textAlign: "left",
+          width: "100%",
           ...(active && {
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
+            backgroundColor: "rgba(255, 255, 255, 0.04)",
           }),
-          '&:hover': {
-            backgroundColor: 'rgba(255, 255, 255, 0.04)',
+          "&:hover": {
+            backgroundColor: "rgba(255, 255, 255, 0.04)",
           },
         }}
         {...linkProps}
       >
         {icon && (
           <Box
-            component='span'
+            component="span"
             sx={{
-              alignItems: 'center',
-              color: 'neutral.400',
-              display: 'inline-flex',
-              justifyContent: 'center',
+              alignItems: "center",
+              color: "neutral.400",
+              display: "inline-flex",
+              justifyContent: "center",
               mr: 2,
               ...(active && {
-                color: 'primary.main',
+                color: "primary.main",
               }),
             }}
           >
@@ -59,20 +59,20 @@ export const SideNavItem = (props: any) => {
           </Box>
         )}
         <Box
-          component='span'
+          component="span"
           sx={{
-            color: 'neutral.400',
+            color: "neutral.400",
             flexGrow: 1,
             fontFamily: (theme) => theme.typography.fontFamily,
             fontSize: 14,
             fontWeight: 600,
-            lineHeight: '24px',
-            whiteSpace: 'nowrap',
+            lineHeight: "24px",
+            whiteSpace: "nowrap",
             ...(active && {
-              color: 'common.white',
+              color: "common.white",
             }),
             ...(disabled && {
-              color: 'neutral.500',
+              color: "neutral.500",
             }),
           }}
         >
