@@ -1,6 +1,7 @@
 import { FirebaseOptions, initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAnalytics, logEvent } from "firebase/analytics";
+import { getAuth } from 'firebase/auth';
+import { getAnalytics } from "firebase/analytics";
 
 const getEnvironmentVariable = (key: string) => {
   var val = process.env[`REACT_APP_FIREBASE_${key}`];
@@ -23,7 +24,5 @@ const firebaseConfiguration: FirebaseOptions = {
 const app = initializeApp(firebaseConfiguration);
 
 export const analytics = getAnalytics(app);
-logEvent(analytics, 'Somethings to test', { id: 999 });
-
-
 export const store = getFirestore(app);
+export const auth = getAuth(app);

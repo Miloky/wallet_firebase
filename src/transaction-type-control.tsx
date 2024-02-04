@@ -17,6 +17,7 @@ const TransactionTypeControl = (props: TransactionTypeControlProps) => {
 
   return (
     <ToggleButtonGroup
+      size='small'
       color="primary"
       value={type}
       exclusive

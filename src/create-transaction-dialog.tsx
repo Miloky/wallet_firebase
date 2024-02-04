@@ -130,6 +130,8 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
           />
           <TextField
             autoFocus
+            variant='outlined'
+            size="small"
             required
             margin="dense"
             id="amount"
@@ -137,14 +139,13 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
             label="Amount"
             type="text"
             fullWidth
-            variant="standard"
             onChange={setInputValue}
             value={formState.amount}
           />
-          <FormControl sx={{ minWidth: 120 }} fullWidth style={{ marginTop: '10px' }}>
-            <MobileDateTimePicker orientation="landscape" ampm={false} label="Date" name="transactionDate" onChange={transactionDateChangeHandler} value={formState.transactionDate} />
+          <FormControl size='small' sx={{ minWidth: 120 }} fullWidth style={{ marginTop: '10px' }}>
+            <MobileDateTimePicker slotProps={{ textField: { size: 'small'}  }}  orientation="landscape" ampm={false} label="Date" name="transactionDate" onChange={transactionDateChangeHandler} value={formState.transactionDate} />
           </FormControl>
-          <FormControl sx={{ minWidth: 120 }} fullWidth style={{ marginTop: '10px' }}>
+          <FormControl size='small' sx={{ minWidth: 120 }} fullWidth style={{ marginTop: '10px' }}>
             <InputLabel htmlFor="grouped-select">Category</InputLabel>
             <Select
               onChange={setInputValue}
@@ -156,13 +157,14 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
             </Select>
           </FormControl>
           <TextField
-            margin="dense"
+          style={{ marginTop: '10px' }}
+            size='small'
             id="description"
             name="description"
             label="Description"
             type="text"
             fullWidth
-            variant="standard"
+            variant="outlined"
             onChange={setInputValue}
             value={formState.description}
           />
