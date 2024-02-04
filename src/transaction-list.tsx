@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Fragment } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -7,18 +7,21 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Container, Divider, ListItemIcon, ListSubheader } from '@mui/material';
+import { Chip, Container, Divider, ListItemIcon, ListSubheader, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import transactionService from './services/transaction-service';
 import CreateTransactionDialog from './create-transaction-dialog';
 import { groupBy } from './helpers/group-by';
 import { Timestamp } from '@firebase/firestore';
+import useCategories from './hooks/use-categories';
 
 interface TransactionListItemProps {
   id: string;
   amount: number;
   description: string;
   type: string;
+  // TODO: type
+  category: any;
 }
 
 const getGroupNameOfTransactionDate = (transaction: { transactionDate: Timestamp }): string => {
@@ -30,7 +33,8 @@ const getGroupNameOfTransactionDate = (transaction: { transactionDate: Timestamp
 };
 
 const TransactionListItem = (props: TransactionListItemProps) => {
-  const { id, amount, description, type } = props;
+  const { id, amount, description, type, category } = props;
+  const { getCategoryById } = useCategories();
 
   const getColor = (type: string) => {
     switch (type) {
@@ -43,23 +47,15 @@ const TransactionListItem = (props: TransactionListItemProps) => {
     }
   }
 
-  return (<ListItem
-    key={id}
-    disablePadding
-    onClick={() => console.log('TESTtjfdsjfl')}
-  >
-    <ListItemButton dense>
-      <ListItemText disableTypography id={id} primary={<Typography variant="subtitle2" color={getColor(type)}>{amount} UAH</Typography>} secondary={<Typography variant="body2">{description}</Typography>} />
-      <ListItemIcon >
-        <IconButton edge="end" aria-label="edit" onClick={(e) => { e.nativeEvent.preventDefault(); console.log('Edit'); }}>
-          <EditIcon />
-        </IconButton>
-        <IconButton edge="end" aria-label="edit" onClick={(e) => { e.preventDefault(); console.log('Delete'); }}>
-          <DeleteIcon />
-        </IconButton>
-      </ListItemIcon>
-    </ListItemButton>
-  </ListItem>)
+  return <>
+    <TableRow key={id}>
+      <TableCell style={{width: '25%'}}>
+        <Typography variant="subtitle2" color={getColor(type)}>{amount.toFixed(2)} UAH</Typography>
+      </TableCell>
+      <TableCell><Chip size="small" label={getCategoryById(category.id)?.name} /></TableCell>
+      <TableCell style={{width: '30%'}}><Typography variant="body2">{description}</Typography></TableCell>
+    </TableRow>
+  </>
 }
 
 const TransactionList = () => {
@@ -86,17 +82,23 @@ const TransactionList = () => {
   }, [getAllTransactions]);
 
   return (
-    <Container>
+    <Container style={{marginTop: '30px'}}>
       <CreateTransactionDialog onSave={createTransaction} />
-      {groupedTransactions.map((group) => {
-        return (<List key={group.name} sx={{ width: '100%', bgcolor: 'background.paper' }}>
-          <ListSubheader style={{ textAlign: 'right'}}>{group.name}</ListSubheader>
-          <Divider />
-          <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            {group.items.map((transaction:any) => <TransactionListItem key={transaction.id} {...transaction} />)}
-          </List>
-        </List>);
-      })}
+
+      {groupedTransactions.map((group) => (
+        <TableContainer key={group.name} component={Paper} elevation={8} sx={{ marginBottom: '30px', marginTop: '15px'}}>
+          <Table>
+            <TableBody>
+              <TableRow>
+                <TableCell component="th" scope="row" colSpan={10}>
+                  <Typography variant="subtitle2">{group.name}</Typography>
+                </TableCell>
+              </TableRow>
+              {group.items.map((transaction: any) => (<TransactionListItem key={transaction.id} {...transaction} />))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ))}
     </Container>
   );
 }

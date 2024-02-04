@@ -156,7 +156,6 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
             </Select>
           </FormControl>
           <TextField
-            required
             margin="dense"
             id="description"
             name="description"

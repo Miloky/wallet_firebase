@@ -1,6 +1,5 @@
-import { collection, getDocs, addDoc} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { store } from "./firebase-service";
-import categories from './categories.json';
 
 export interface Category {
   id: string;
@@ -42,19 +41,7 @@ class CategoryRepository {
     );
     return result;
   }
-
-  public async init(): Promise<void>{
-    const categoriesRef = collection(store, 'categories');
-
-    categories.map(async (x)=> {
-      const categoryRef = await addDoc(categoriesRef, { name: x.name });
-      const subCollectionRef = collection(categoryRef, 'sub');
-
-      await Promise.all([...x.subcategories.map(async c => await addDoc(subCollectionRef, {name: c }))]);
-    });
-  }
 }
 
 const categoryRepository = new CategoryRepository();
-// categoryRepository.init();
 export default categoryRepository;
