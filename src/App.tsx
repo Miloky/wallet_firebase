@@ -25,7 +25,14 @@ const App = () => {
             <Route
               path='/accounts/:id'
               Component={() => Home.getLayout(<CheckboxList />)}
-            ></Route>
+            />
+            <Route
+              path='/todo'
+              Component={() => Home.getLayout(<h1>Todo</h1>)}
+            />
+            <Route path='*'
+              Component={() => Home.getLayout(<h1>404 Not found</h1>)}
+            />
           </Routes>
         </LocalizationProvider>
       </ThemeProvider>

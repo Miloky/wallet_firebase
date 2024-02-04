@@ -14,6 +14,7 @@ import CreateTransactionDialog from './create-transaction-dialog';
 import { groupBy } from './helpers/group-by';
 import { Timestamp } from '@firebase/firestore';
 import useCategories from './hooks/use-categories';
+import BasicMenu from './transaction-options';
 
 interface TransactionListItemProps {
   id: string;
@@ -54,6 +55,7 @@ const TransactionListItem = (props: TransactionListItemProps) => {
       </TableCell>
       <TableCell><Chip size="small" label={getCategoryById(category.id)?.name} /></TableCell>
       <TableCell style={{width: '30%'}}><Typography variant="body2">{description}</Typography></TableCell>
+      <TableCell style={{width: '30%'}}><BasicMenu /></TableCell>
     </TableRow>
   </>
 }
