@@ -13,8 +13,8 @@ import {
   TextField,
 } from "@mui/material";
 import useCategories from "./hooks/use-categories";
-import TransactionTypeControl from './transaction-type-control';
-import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
+import TransactionTypeControl from "./transaction-type-control";
+import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 
 interface CreateTransactionDialogProps {
   // TODO: add types
@@ -34,7 +34,7 @@ const getDefaultState = (): CreateTransactionDialogState => ({
   amount: 0,
   type: "expense",
   category: "",
-  transactionDate: new Date()
+  transactionDate: new Date(),
 });
 
 const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
@@ -67,7 +67,9 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
     }));
 
   const setInputValue = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>
+    e:
+      | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<string>
   ): void => {
     if (!e) return;
     const name = e.target.name;
@@ -77,10 +79,10 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
 
   const transactionDateChangeHandler = (date: Date | null): void => {
     if (!date) return;
-    const name = 'transactionDate';
+    const name = "transactionDate";
     const value = date;
     setState(name, value);
-  }
+  };
 
   const setTransactionType = (type: string): void => {
     setFormState((prev) => ({ ...prev, type }));
@@ -130,7 +132,7 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
           />
           <TextField
             autoFocus
-            variant='outlined'
+            variant="outlined"
             size="small"
             required
             margin="dense"
@@ -142,10 +144,28 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
             onChange={setInputValue}
             value={formState.amount}
           />
-          <FormControl size='small' sx={{ minWidth: 120 }} fullWidth style={{ marginTop: '10px' }}>
-            <MobileDateTimePicker slotProps={{ textField: { size: 'small'}  }}  orientation="landscape" ampm={false} label="Date" name="transactionDate" onChange={transactionDateChangeHandler} value={formState.transactionDate} />
+          <FormControl
+            size="small"
+            sx={{ minWidth: 120 }}
+            fullWidth
+            style={{ marginTop: "10px" }}
+          >
+            <MobileDateTimePicker
+              slotProps={{ textField: { size: "small" } }}
+              orientation="landscape"
+              ampm={false}
+              label="Date"
+              name="transactionDate"
+              onChange={transactionDateChangeHandler}
+              value={formState.transactionDate}
+            />
           </FormControl>
-          <FormControl size='small' sx={{ minWidth: 120 }} fullWidth style={{ marginTop: '10px' }}>
+          <FormControl
+            size="small"
+            sx={{ minWidth: 120 }}
+            fullWidth
+            style={{ marginTop: "10px" }}
+          >
             <InputLabel htmlFor="grouped-select">Category</InputLabel>
             <Select
               onChange={setInputValue}
@@ -157,8 +177,8 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
             </Select>
           </FormControl>
           <TextField
-          style={{ marginTop: '10px' }}
-            size='small'
+            style={{ marginTop: "10px" }}
+            size="small"
             id="description"
             name="description"
             label="Description"
