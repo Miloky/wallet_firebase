@@ -16,6 +16,7 @@ export interface Account {
   id: string;
   name: string;
   balance: number;
+  logo: string;
 }
 
 class AccountService {
@@ -28,6 +29,7 @@ class AccountService {
         id: item.id,
         name: data.name,
         balance: data.balance,
+        logo: data.logo
       });
     });
     return result;

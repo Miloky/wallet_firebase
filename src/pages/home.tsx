@@ -70,7 +70,7 @@ const CreateAccountDialog = (props: CreateAccountDialogProps) => {
           component: "form",
           onSubmit: async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
-            await onSave({ name: formState.name, balance: formState.balance });
+            await onSave({ name: formState.name, balance: formState.balance, logo: '' });
             handleClose();
           },
         }}
@@ -164,6 +164,7 @@ const Page = () => {
                   id={acc.id}
                   name={acc.name}
                   balance={acc.balance as any as string}
+                  logo={acc.logo}
                   onDelete={deleteHandler}
                 />
               </Grid>

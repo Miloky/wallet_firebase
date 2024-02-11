@@ -13,15 +13,19 @@ const numberWithSpaces = (x: string | number): string => {
   return parts.join(".");
 };
 
+const imgPlaceholder =
+  "https://i.pinimg.com/736x/90/19/4b/90194b7f2ca68a3d80dc41a6e20ae1de.jpg";
+
 interface MediaCardProps {
   id: string;
   name: string;
   balance: string;
+  logo: string;
   onDelete: (id: string) => Promise<void>;
 }
 
 const MediaCard = (props: MediaCardProps) => {
-  const { id, name, balance, onDelete } = props;
+  const { id, name, balance, logo, onDelete } = props;
   const navigate = useNavigate();
 
   const deleteClickHandler: React.MouseEventHandler<HTMLButtonElement> = async (
@@ -47,9 +51,9 @@ const MediaCard = (props: MediaCardProps) => {
       onClick={cardNavigationHandler}
     >
       <CardMedia
-        sx={{ height: 140 }}
-        image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-        title="green iguana"
+        sx={{ height: 140, backgroundSize: "contain" }}
+        image={logo ?? imgPlaceholder}
+        title="Logo"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
