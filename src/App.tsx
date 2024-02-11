@@ -73,20 +73,6 @@ const App = () => {
           router={router}
           fallbackElement={<p>Initial Load...</p>}
         />
-        {/* <Routes>
-          <Route
-            path="/"
-            loader={protectedLoader}
-            Component={() => Home.getLayout(<Home />)}
-          />
-          <Route
-            path="/accounts/:id"
-            element={Home.getLayout(<CheckboxList />)}
-          />
-          <Route path="/todo" element={Home.getLayout(<h1>Todo</h1>)} />
-          <Route path="/login" Component={() => <LoginPage />} />
-          <Route path="*" element={Home.getLayout(<h1>404 Not found</h1>)} />
-        </Routes> */}
       </LocalizationProvider>
     </ThemeProvider>
   );

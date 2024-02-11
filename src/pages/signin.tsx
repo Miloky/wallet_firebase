@@ -46,10 +46,6 @@ export default function SignInSide() {
     const data = new FormData(event.currentTarget);
     const email = data.get("email") as string;
     const password = data.get("password") as string;
-    console.log({
-      email,
-      password,
-    });
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,

@@ -17,6 +17,7 @@ export interface Account {
   name: string;
   balance: number;
   logo: string;
+  currencyCode: string;
 }
 
 class AccountService {
@@ -29,7 +30,8 @@ class AccountService {
         id: item.id,
         name: data.name,
         balance: data.balance,
-        logo: data.logo
+        logo: data.logo,
+        currencyCode: data.currencyCode
       });
     });
     return result;

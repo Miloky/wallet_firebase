@@ -21,11 +21,12 @@ interface MediaCardProps {
   name: string;
   balance: string;
   logo: string;
+  currencyCode: string;
   onDelete: (id: string) => Promise<void>;
 }
 
 const MediaCard = (props: MediaCardProps) => {
-  const { id, name, balance, logo, onDelete } = props;
+  const { id, name, balance, logo, currencyCode, onDelete } = props;
   const navigate = useNavigate();
 
   const deleteClickHandler: React.MouseEventHandler<HTMLButtonElement> = async (
@@ -57,7 +58,7 @@ const MediaCard = (props: MediaCardProps) => {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {numberWithSpaces(balance)} UAH
+          {numberWithSpaces(balance)} {currencyCode}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {name}

@@ -70,7 +70,7 @@ const CreateAccountDialog = (props: CreateAccountDialogProps) => {
           component: "form",
           onSubmit: async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
-            await onSave({ name: formState.name, balance: formState.balance, logo: '' });
+            await onSave({ name: formState.name, balance: formState.balance, logo: '', currencyCode: 'UAH' });
             handleClose();
           },
         }}
@@ -165,6 +165,7 @@ const Page = () => {
                   name={acc.name}
                   balance={acc.balance as any as string}
                   logo={acc.logo}
+                  currencyCode={acc.currencyCode}
                   onDelete={deleteHandler}
                 />
               </Grid>
