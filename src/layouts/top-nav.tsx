@@ -16,9 +16,7 @@ import {
 import { alpha } from '@mui/material/styles';
 import { usePopover } from '../hooks/use-popover';
 import { AccountPopover } from './account-popover';
-
-const SIDE_NAV_WIDTH = 280;
-const TOP_NAV_HEIGHT = 64;
+import { SIDE_NAV_WIDTH, TOP_NAV_HEIGHT } from '../constants';
 
 export const TopNav = (props: any) => {
   const { onNavOpen } = props;

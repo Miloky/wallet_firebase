@@ -40,6 +40,7 @@ const getGroupNameOfTransactionDate = (transaction: {
 
 const TransactionListItem = (props: TransactionListItemProps) => {
   const { id, amount, description, type, category } = props;
+  const { id: accountId } = useParams<{ id: string }>();
   const { getCategoryById } = useCategories();
 
   const getColor = (type: string) => {
@@ -68,7 +69,7 @@ const TransactionListItem = (props: TransactionListItemProps) => {
           <Typography variant="body2">{description}</Typography>
         </TableCell>
         <TableCell style={{ width: "30%" }}>
-          <BasicMenu />
+          <BasicMenu transactionId={id} accountId={accountId!}  />
         </TableCell>
       </TableRow>
     </>

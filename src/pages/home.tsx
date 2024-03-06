@@ -125,11 +125,6 @@ const Page = () => {
     loadAccounts();
   }, []);
 
-  const deleteHandler = async (id: string): Promise<void> => {
-    await accountService.delete(id);
-    await loadAccounts();
-  };
-
   const accountCreateHandler = async (account: Omit<Account, 'id'>): Promise<void> => {
     await accountService.create(account);
     await loadAccounts();
@@ -166,7 +161,6 @@ const Page = () => {
                   balance={acc.balance as any as string}
                   logo={acc.logo}
                   currencyCode={acc.currencyCode}
-                  onDelete={deleteHandler}
                 />
               </Grid>
             ))}

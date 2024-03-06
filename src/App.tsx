@@ -13,33 +13,34 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import SignInPage from "./pages/signin";
 import { auth } from "./services/firebase-service";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import type { LoaderFunctionArgs } from "react-router-dom";
 import TransactionsPage from "./transaction-list";
+import CreateTransactionPage  from "./pages/create-transaction/create-transaction-page";
+import UnderConstructionPage from "./pages/under-construction-page";
+import UpcomingFeaturesPage from "./pages/upcoming-features-page";
 
 const theme = createTheme();
-
-function protectedLoader({ request }: LoaderFunctionArgs) {
-  // If the user is not logged in and tries to access `/protected`, we redirect
-  // them to `/login` with a `from` parameter that allows login to redirect back
-  // to this page upon successful authentication
-  if (!auth.currentUser) {
-    let params = new URLSearchParams();
-    params.set("from", new URL(request.url).pathname);
-    return redirect("/signin?" + params.toString());
-  }
-  return null;
-}
 
 const router = createBrowserRouter([
   {
     id: "root",
     path: "/",
-    loader: protectedLoader,
     Component: () => Home.getLayout(<Home />),
   },
   {
-    path:"/accounts/:id",
-    Component: () => Home.getLayout(<TransactionsPage />)
+    path: "/under-construction",
+    Component: () => Home.getLayout(<UnderConstructionPage />),
+  },
+  {
+    path: "/upcoming-features",
+    Component: () => Home.getLayout(<UpcomingFeaturesPage />),
+  },
+  {
+    path: "/accounts/:id",
+    Component: () => Home.getLayout(<TransactionsPage />),
+  },
+  {
+    path: "/accounts/:accountId/create-transaction",
+    Component: () => Home.getLayout(<CreateTransactionPage />),
   },
   {
     path: "/signin",

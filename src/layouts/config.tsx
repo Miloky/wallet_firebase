@@ -13,6 +13,33 @@ export const items = [
     )
   },
   {
+    title: 'Account Settings',
+    path: '/under-construction',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'ToDo List',
+    path: '/under-construction',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },
+  {
+    title: 'Upcoming Features',
+    path: '/upcoming-features',
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChartBarIcon />
+      </SvgIcon>
+    )
+  },
+  {
     title: 'Login',
     path: '/signin',
     icon: (

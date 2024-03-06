@@ -7,7 +7,8 @@ import useCategories from "../../hooks/use-categories";
 
 interface Props {
   name: string;
-  onChange(val: { [key: string]: string }): void | Promise<void>;
+  // TODO: Change the order first provide value
+  onChange(name: string,value: string,): void | Promise<void>;
   value: string;
 }
 
@@ -40,8 +41,7 @@ const CategorySelect = (props: Props) => {
     if (!e) return;
     const name = e.target.name;
     const value = e.target.value;
-
-    return onChange({ [name]: value });
+    return onChange(name, value);
   };
 
   return (

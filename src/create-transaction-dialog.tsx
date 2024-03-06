@@ -5,16 +5,16 @@ import {
   DialogActions,
   DialogContent,
   FormControl,
-  InputLabel,
-  ListSubheader,
-  MenuItem,
-  Select,
   SelectChangeEvent,
   TextField,
+  Typography,
 } from "@mui/material";
-import useCategories from "./hooks/use-categories";
 import TransactionTypeControl from "./transaction-type-control";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
+import CreateOnNewPage from "./create-on-page";
+import CategorySelect from "./pages/create-transaction/category-select";
+import { useParams } from "react-router-dom";
+import useAccount from "./pages/create-transaction/use-account";
 
 interface CreateTransactionDialogProps {
   // TODO: add types
@@ -44,15 +44,12 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
     getDefaultState()
   );
 
-  const { categories } = useCategories();
+  const { id } = useParams<{ id: string }>();
+  const { account } = useAccount({ id: id! });
 
   const setDefaultFormState = () => {
     const defaultState = getDefaultState();
     setFormState(defaultState);
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
   };
 
   const handleClose = () => {
@@ -88,30 +85,19 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
     setFormState((prev) => ({ ...prev, type }));
   };
 
-  const getOptions = () => {
-    // TODO: Add types
-    const result: any[] = categories.reduce((result, val) => {
-      result.push(<ListSubheader key={val.id}>{val.name}</ListSubheader>);
-      result.push(
-        ...val.sub.map((c: any) => (
-          <MenuItem style={{ paddingLeft: "40px" }} key={c.id} value={c.id}>
-            {c.name}
-          </MenuItem>
-        ))
-      );
-      return result;
-    }, [] as any[]);
-    return result;
-  };
-
   return (
     <>
       <div
-        style={{ display: "flex", flexDirection: "row", justifyContent: "end" }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: 'center'
+        }}
       >
-        <Button variant="text" onClick={handleClickOpen}>
-          Add new transaction
-        </Button>
+        <img src={account?.logo} style={{ height: "35px" }} />
+        <Typography>{account?.balance}{' '}{account?.currencyCode}</Typography>
+        <CreateOnNewPage />
       </div>
       <Dialog
         open={open}
@@ -160,22 +146,11 @@ const CreateTransactionDialog = (props: CreateTransactionDialogProps) => {
               value={formState.transactionDate}
             />
           </FormControl>
-          <FormControl
-            size="small"
-            sx={{ minWidth: 120 }}
-            fullWidth
-            style={{ marginTop: "10px" }}
-          >
-            <InputLabel htmlFor="grouped-select">Category</InputLabel>
-            <Select
-              onChange={setInputValue}
-              name="category"
-              id="category"
-              label="Category"
-            >
-              {getOptions()}
-            </Select>
-          </FormControl>
+          <CategorySelect
+            name="category"
+            value={formState.category}
+            onChange={setState}
+          />
           <TextField
             style={{ marginTop: "10px" }}
             size="small"
